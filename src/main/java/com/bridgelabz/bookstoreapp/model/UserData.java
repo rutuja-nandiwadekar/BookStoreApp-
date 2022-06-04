@@ -14,18 +14,22 @@ public class UserData {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
-    private Long id;
+    private Integer id;
     private String firstName;
     private String lastName;
     private String email;
     private String password;
 
     public UserData(UserDTO userDTO) {
+        this.updateUserData(userDTO);
+
+    }
+
+
+    public void updateUserData(UserDTO userDTO) {
         this.firstName = userDTO.firstName;
         this.lastName = userDTO.lastName;
         this.email = userDTO.email;
         this.password = userDTO.password;
     }
-
-
 }
