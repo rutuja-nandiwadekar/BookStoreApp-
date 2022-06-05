@@ -2,6 +2,7 @@ package com.bridgelabz.bookstoreapp.controller;
 
 import com.bridgelabz.bookstoreapp.dto.ResponseDTO;
 import com.bridgelabz.bookstoreapp.dto.UserDTO;
+import com.bridgelabz.bookstoreapp.dto.UserLoginDTO;
 import com.bridgelabz.bookstoreapp.model.UserData;
 import com.bridgelabz.bookstoreapp.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,18 @@ public class UserController {
         ResponseDTO respDTO=new ResponseDTO("User Registered Successfully",userData);
         return new ResponseEntity(respDTO, HttpStatus.OK);
     }
+
+    /**
+     * @Purpose : To login user
+     * @Param : UserLoginDTO
+     * @return user data and httpStatus
+     */
+    @PostMapping("/login")
+    public ResponseEntity<ResponseDTO> userLogin(@RequestBody UserLoginDTO userLoginDTO) {
+        ResponseDTO respDTO = userService.loginUser(userLoginDTO);
+        return new ResponseEntity(respDTO, HttpStatus.OK);
+    }
+
     /**
      * @Purpose : To get list of all user in book store application
      * @return  user data list and httpStatus
@@ -73,5 +86,5 @@ public class UserController {
         ResponseDTO respDTO = new ResponseDTO("Deleted successfully","Deleted id: "+id);
         return new  ResponseEntity<>(respDTO,HttpStatus.OK);
     }
-    
+
 }

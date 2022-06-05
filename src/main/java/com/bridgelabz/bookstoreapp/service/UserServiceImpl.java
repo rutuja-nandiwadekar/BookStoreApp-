@@ -1,12 +1,13 @@
 package com.bridgelabz.bookstoreapp.service;
 
+import com.bridgelabz.bookstoreapp.dto.ResponseDTO;
 import com.bridgelabz.bookstoreapp.dto.UserDTO;
+import com.bridgelabz.bookstoreapp.dto.UserLoginDTO;
 import com.bridgelabz.bookstoreapp.model.UserData;
 
 import java.util.List;
 
 public interface UserServiceImpl {
-
 
     UserData registerUser(UserDTO userDTO);
 
@@ -16,6 +17,7 @@ public interface UserServiceImpl {
 
     void deleteUserData(Integer id);
 
-
     List<UserData> getUserData();
+
+    ResponseDTO loginUser(UserLoginDTO userLoginDTO);
 }

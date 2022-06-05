@@ -25,7 +25,6 @@ public class UserData {
 
     }
 
-
     public void updateUserData(UserDTO userDTO) {
         this.firstName = userDTO.firstName;
         this.lastName = userDTO.lastName;
