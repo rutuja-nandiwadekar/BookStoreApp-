@@ -4,6 +4,7 @@ import com.bridgelabz.bookstoreapp.dto.ResponseDTO;
 import com.bridgelabz.bookstoreapp.dto.UserDTO;
 import com.bridgelabz.bookstoreapp.dto.UserLoginDTO;
 import com.bridgelabz.bookstoreapp.model.UserData;
+import com.bridgelabz.bookstoreapp.service.EmailSenderService;
 import com.bridgelabz.bookstoreapp.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,9 @@ public class UserController {
 
     @Autowired
     private UserServiceImpl userService;
+
+    @Autowired
+    private EmailSenderService senderService;
 
     /**
      * @Purpose : To check simple api call
@@ -35,9 +39,19 @@ public class UserController {
      */
     @PostMapping("/register")
     public ResponseEntity<ResponseDTO> userRegistration(@RequestBody UserDTO userDTO){
-        UserData userData = userService.registerUser(userDTO);
-        ResponseDTO respDTO=new ResponseDTO("User Registered Successfully",userData);
+        ResponseDTO respDTO = userService.registerUser(userDTO);
         return new ResponseEntity(respDTO, HttpStatus.OK);
+    }
+
+    /**
+     * @Purpose : To verify otp at the time of registration
+     * @Param : otp
+     * @return user data and httpStatus
+     */
+    @GetMapping("/verify/email/{otp}")
+    public ResponseEntity<ResponseDTO> otpVerification(@PathVariable Long otp){
+        ResponseDTO respDTO = userService.verifyOtp(otp);
+        return new ResponseEntity<>(respDTO, HttpStatus.OK);
     }
 
     /**

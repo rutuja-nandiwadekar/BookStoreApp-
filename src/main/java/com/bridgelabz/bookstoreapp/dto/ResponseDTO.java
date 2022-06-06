@@ -10,7 +10,6 @@ public @Data class ResponseDTO {
         this.message = message;
         this.data = data;
     }
-
     public ResponseDTO() {
 
     }

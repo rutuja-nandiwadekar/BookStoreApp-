@@ -6,7 +6,9 @@ import com.bridgelabz.bookstoreapp.dto.UserLoginDTO;
 import com.bridgelabz.bookstoreapp.exception.BookStoreException;
 import com.bridgelabz.bookstoreapp.model.UserData;
 import com.bridgelabz.bookstoreapp.repository.UserRegistrationRepository;
+import com.bridgelabz.bookstoreapp.util.OtpGenerator;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,12 +19,24 @@ import java.util.List;
 @Slf4j
 public class UserService implements UserServiceImpl {
 
+    @Autowired
+    private OtpGenerator otpGenerator;
 
+    @Autowired
+    UserData userData;
     @Autowired
     private UserRegistrationRepository userRepository;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    private EmailSenderService emailSenderService;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+    Long otp;
 
 
     @Override
@@ -35,14 +49,7 @@ public class UserService implements UserServiceImpl {
     /**
      * @Purpose This method is used to register the user into the data base
      */
-    @Override
-    public UserData registerUser(UserDTO userDTO) {
-        UserData addUser = null;
-        addUser = new UserData(userDTO);
-        addUser.setPassword(bCryptPasswordEncoder.encode(addUser.getPassword()));
-        return userRepository.save(addUser);
 
-    }
     /**
      * @Purpose This method is used to update the user data
      */
@@ -97,4 +104,55 @@ public class UserService implements UserServiceImpl {
         return new ResponseDTO("User not found", "Wrong email");
     }
 
+    /**
+     * @Purpose This method is used to verify otp while user registration
+     */
+    @Override
+    public ResponseDTO verifyOtp(Long otp) {
+        if (otp.equals(otp)&&userData.getIsVerified().equals(false)) {
+            userData.setIsVerified(true);
+            userRepository.save(userData);
+            return new ResponseDTO("otp verified", userData);
+        }
+        return new ResponseDTO("Invalid otp", "please enter correct otp");
+    }
+
+    /**
+     * @Purpose This method is used to register user
+     */
+    @Override
+    public ResponseDTO registerUser(UserDTO userDTO) {
+        ResponseDTO responseDTO = new ResponseDTO();
+        UserData user = userRepository.findUserDataByEmail(userDTO.getEmail());
+        if (user == null) {
+
+            userData = modelMapper.map(userDTO, UserData.class);
+
+            String epassword = bCryptPasswordEncoder.encode(userDTO.getPassword());
+            userData.setPassword(epassword);
+            System.out.println("password is " + epassword);
+
+            userData = userRepository.save(userData);
+            otp = otpGenerator.generateOTP();
+            String requestUrl = "http://localhost:8080/bookstoreApi/verify/email/" + otp;
+            System.out.println("the generated otp is " + otp);
+            try {
+                emailSenderService.sendEmail(
+                        userDTO.getEmail(),
+                        "Your Registration is successful",
+                        requestUrl+"\n your generated otp is "
+                                +otp);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            responseDTO.setMessage("User Created successfully");
+            responseDTO.setData(userData);
+        } else {
+            responseDTO.setMessage("user not created");
+            responseDTO.setData("user with " + userDTO.getEmail() + " is already exists");
+        }
+        return responseDTO;
+    }
 }
+
+

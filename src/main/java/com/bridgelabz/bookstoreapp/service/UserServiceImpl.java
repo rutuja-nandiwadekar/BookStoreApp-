@@ -9,8 +9,6 @@ import java.util.List;
 
 public interface UserServiceImpl {
 
-    UserData registerUser(UserDTO userDTO);
-
     UserData updateUserData(Integer id, UserDTO userDTO);
 
     UserData getUserDataById(Integer id);
@@ -20,4 +18,8 @@ public interface UserServiceImpl {
     List<UserData> getUserData();
 
     ResponseDTO loginUser(UserLoginDTO userLoginDTO);
+
+    ResponseDTO verifyOtp(Long otp);
+
+    ResponseDTO registerUser(UserDTO userDTO);
 }
