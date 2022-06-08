@@ -23,4 +23,7 @@ public interface UserServiceImpl {
 
     ResponseDTO registerUser(UserDTO userDTO);
 
+    String forgotPasswordRequest(String email);
+
+    String resetPassword(String password, Long otp);
 }

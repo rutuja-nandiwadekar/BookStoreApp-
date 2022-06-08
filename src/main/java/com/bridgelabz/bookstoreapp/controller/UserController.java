@@ -67,6 +67,31 @@ public class UserController {
     }
 
     /**
+     * @Purpose : To sent forgot password request
+     * @Param : email
+     * @return response and status
+     */
+    @PostMapping("/forgotpassword")
+    public ResponseEntity<ResponseDTO> forgotPasswordRequest(@RequestParam("email") String email) {
+        String otp = userService.forgotPasswordRequest(email);
+        ResponseDTO respDTO = new ResponseDTO("Otp sent Succesfully", otp);
+        return new ResponseEntity(respDTO, HttpStatus.OK);
+    }
+
+    /**
+     * @Purpose : To reset password
+     * @Param : password, otp
+     * @return response and status
+     */
+    @PostMapping("/resetpassword/{otp}")
+    public ResponseEntity<ResponseDTO> resetPassword(@RequestParam String password, @PathVariable Long otp) {
+        String newPassword = userService.resetPassword(password, otp);
+        ResponseDTO respDTO = new ResponseDTO("Reset Password", newPassword);
+        return new ResponseEntity<>(respDTO, HttpStatus.OK);
+
+    }
+
+    /**
      * @Purpose : To get list of all user in book store application
      * @return  user data list and httpStatus
      */

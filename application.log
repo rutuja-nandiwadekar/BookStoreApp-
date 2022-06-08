@@ -140,3 +140,37 @@ Caused by: java.lang.NullPointerException: Cannot invoke "org.springframework.we
 2022-06-08 16:30:09.128  INFO 5756 --- [restartedMain] c.b.b.BookStoreAppApplication            : Started BookStoreAppApplication in 17.456 seconds (JVM running for 23.857)
 2022-06-08 16:30:09.139  INFO 5756 --- [restartedMain] c.b.b.BookStoreAppApplication            : Book Store Application started in DEV Environment
 2022-06-08 16:30:09.141  INFO 5756 --- [restartedMain] c.b.b.BookStoreAppApplication            : Book Store Application DB User is root 
+2022-06-08 22:57:23.770  INFO 17040 --- [restartedMain] c.b.b.BookStoreAppApplication            : Starting BookStoreAppApplication using Java 17.0.2 on LAPTOP-NATQCI4K with PID 17040 (D:\CFP\SpringBoot\bookstoreapp\target\classes started by root in D:\CFP\SpringBoot\bookstoreapp)
+2022-06-08 22:57:23.778 DEBUG 17040 --- [restartedMain] c.b.b.BookStoreAppApplication            : Running with Spring Boot v2.7.0, Spring v5.3.20
+2022-06-08 22:57:23.780  INFO 17040 --- [restartedMain] c.b.b.BookStoreAppApplication            : The following 1 profile is active: "dev"
+2022-06-08 22:57:33.718  WARN 17040 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-06-08 22:57:34.499  WARN 17040 --- [restartedMain] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2022-06-08 22:57:35.517  INFO 17040 --- [restartedMain] c.b.b.BookStoreAppApplication            : Started BookStoreAppApplication in 14.303 seconds (JVM running for 18.18)
+2022-06-08 22:57:35.522  INFO 17040 --- [restartedMain] c.b.b.BookStoreAppApplication            : Book Store Application started in DEV Environment
+2022-06-08 22:57:35.523  INFO 17040 --- [restartedMain] c.b.b.BookStoreAppApplication            : Book Store Application DB User is root 
+2022-06-08 23:01:13.994  WARN 17040 --- [http-nio-8080-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' not supported]
+2022-06-08 23:03:10.889  WARN 17040 --- [http-nio-8080-exec-6] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' not supported]
+2022-06-08 23:10:49.091  INFO 13820 --- [restartedMain] c.b.b.BookStoreAppApplication            : Starting BookStoreAppApplication using Java 17.0.2 on LAPTOP-NATQCI4K with PID 13820 (D:\CFP\SpringBoot\bookstoreapp\target\classes started by root in D:\CFP\SpringBoot\bookstoreapp)
+2022-06-08 23:10:49.094 DEBUG 13820 --- [restartedMain] c.b.b.BookStoreAppApplication            : Running with Spring Boot v2.7.0, Spring v5.3.20
+2022-06-08 23:10:49.095  INFO 13820 --- [restartedMain] c.b.b.BookStoreAppApplication            : The following 1 profile is active: "dev"
+2022-06-08 23:10:59.116  WARN 13820 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-06-08 23:10:59.393  WARN 13820 --- [restartedMain] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2022-06-08 23:10:59.681  INFO 13820 --- [restartedMain] c.b.b.BookStoreAppApplication            : Started BookStoreAppApplication in 11.244 seconds (JVM running for 16.599)
+2022-06-08 23:10:59.684  INFO 13820 --- [restartedMain] c.b.b.BookStoreAppApplication            : Book Store Application started in DEV Environment
+2022-06-08 23:10:59.685  INFO 13820 --- [restartedMain] c.b.b.BookStoreAppApplication            : Book Store Application DB User is root 
+2022-06-08 23:11:17.548  INFO 8068 --- [restartedMain] c.b.b.BookStoreAppApplication            : Starting BookStoreAppApplication using Java 17.0.2 on LAPTOP-NATQCI4K with PID 8068 (D:\CFP\SpringBoot\bookstoreapp\target\classes started by root in D:\CFP\SpringBoot\bookstoreapp)
+2022-06-08 23:11:17.550 DEBUG 8068 --- [restartedMain] c.b.b.BookStoreAppApplication            : Running with Spring Boot v2.7.0, Spring v5.3.20
+2022-06-08 23:11:17.551  INFO 8068 --- [restartedMain] c.b.b.BookStoreAppApplication            : The following 1 profile is active: "dev"
+2022-06-08 23:11:21.981  WARN 8068 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-06-08 23:11:22.253  WARN 8068 --- [restartedMain] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2022-06-08 23:11:22.532  INFO 8068 --- [restartedMain] c.b.b.BookStoreAppApplication            : Started BookStoreAppApplication in 5.37 seconds (JVM running for 6.141)
+2022-06-08 23:11:22.536  INFO 8068 --- [restartedMain] c.b.b.BookStoreAppApplication            : Book Store Application started in DEV Environment
+2022-06-08 23:11:22.537  INFO 8068 --- [restartedMain] c.b.b.BookStoreAppApplication            : Book Store Application DB User is root 
+2022-06-08 23:57:08.447  INFO 7432 --- [restartedMain] c.b.b.BookStoreAppApplication            : Starting BookStoreAppApplication using Java 17.0.2 on LAPTOP-NATQCI4K with PID 7432 (D:\CFP\SpringBoot\bookstoreapp\target\classes started by root in D:\CFP\SpringBoot\bookstoreapp)
+2022-06-08 23:57:08.456 DEBUG 7432 --- [restartedMain] c.b.b.BookStoreAppApplication            : Running with Spring Boot v2.7.0, Spring v5.3.20
+2022-06-08 23:57:08.457  INFO 7432 --- [restartedMain] c.b.b.BookStoreAppApplication            : The following 1 profile is active: "dev"
+2022-06-08 23:57:16.648  WARN 7432 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-06-08 23:57:16.988  WARN 7432 --- [restartedMain] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2022-06-08 23:57:17.515  INFO 7432 --- [restartedMain] c.b.b.BookStoreAppApplication            : Started BookStoreAppApplication in 9.716 seconds (JVM running for 12.479)
+2022-06-08 23:57:17.518  INFO 7432 --- [restartedMain] c.b.b.BookStoreAppApplication            : Book Store Application started in DEV Environment
+2022-06-08 23:57:17.520  INFO 7432 --- [restartedMain] c.b.b.BookStoreAppApplication            : Book Store Application DB User is root 
