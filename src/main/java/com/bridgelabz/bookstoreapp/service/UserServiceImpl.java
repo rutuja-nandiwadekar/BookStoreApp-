@@ -22,4 +22,5 @@ public interface UserServiceImpl {
     ResponseDTO verifyOtp(Long otp);
 
     ResponseDTO registerUser(UserDTO userDTO);
+
 }

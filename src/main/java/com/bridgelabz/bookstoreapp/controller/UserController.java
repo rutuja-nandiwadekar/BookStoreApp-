@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequestMapping("/bookstore")
@@ -33,12 +34,12 @@ public class UserController {
     }
 
     /**
-     * @Purpose : To add/ register user in book store application
+     * @Purpose : To add / register user in book store application
      * @Param : UserDTO
      * @return user data and httpStatus
      */
     @PostMapping("/register")
-    public ResponseEntity<ResponseDTO> userRegistration(@RequestBody UserDTO userDTO){
+    public ResponseEntity<ResponseDTO> userRegistration(@Valid @RequestBody UserDTO userDTO){
         ResponseDTO respDTO = userService.registerUser(userDTO);
         return new ResponseEntity(respDTO, HttpStatus.OK);
     }
@@ -60,7 +61,7 @@ public class UserController {
      * @return user data and httpStatus
      */
     @PostMapping("/login")
-    public ResponseEntity<ResponseDTO> userLogin(@RequestBody UserLoginDTO userLoginDTO) {
+    public ResponseEntity<ResponseDTO> userLogin(@Valid @RequestBody UserLoginDTO userLoginDTO) {
         ResponseDTO respDTO = userService.loginUser(userLoginDTO);
         return new ResponseEntity(respDTO, HttpStatus.OK);
     }
@@ -83,7 +84,7 @@ public class UserController {
      * @return updated user data and httpStatus
      */
     @PutMapping("/update/{id}")
-    public ResponseEntity<ResponseDTO> updateUserData(@PathVariable("id") Integer id, @RequestBody UserDTO userDTO){
+    public ResponseEntity<ResponseDTO> updateUserData(@PathVariable("id") Integer id, @Valid @RequestBody UserDTO userDTO){
         UserData userData = userService.updateUserData(id, userDTO);
         ResponseDTO respDTO=new ResponseDTO("User Updated Successfully",userData);
         return new ResponseEntity(respDTO, HttpStatus.OK);

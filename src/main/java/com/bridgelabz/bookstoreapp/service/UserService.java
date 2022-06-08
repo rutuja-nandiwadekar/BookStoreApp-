@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -43,12 +44,8 @@ public class UserService implements UserServiceImpl {
     public UserData getUserDataById(Integer id) {
         return userRepository
                 .findById(id)
-                .orElseThrow(()->new BookStoreException(("User with Id "+id+ "does not exists...")));
+                .orElseThrow(()->new BookStoreException(("User with Id " +id+ " does not exists...")));
     }
-
-    /**
-     * @Purpose This method is used to register the user into the data base
-     */
 
     /**
      * @Purpose This method is used to update the user data
