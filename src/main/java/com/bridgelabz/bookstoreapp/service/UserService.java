@@ -7,6 +7,7 @@ import com.bridgelabz.bookstoreapp.exception.BookStoreException;
 import com.bridgelabz.bookstoreapp.model.UserData;
 import com.bridgelabz.bookstoreapp.repository.UserRegistrationRepository;
 import com.bridgelabz.bookstoreapp.util.OtpGenerator;
+import com.bridgelabz.bookstoreapp.util.TokenGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +39,10 @@ public class UserService implements UserServiceImpl {
     @Autowired
     private ModelMapper modelMapper;
 
-    Long otp;
+    @Autowired
+    private TokenGenerator tokenGenerator;
 
+    Long otp;
 
     /**
      * @Purpose This method is used to check user is present or not by Id
@@ -107,23 +110,44 @@ public class UserService implements UserServiceImpl {
      */
     @Override
     public ResponseDTO loginUser(UserLoginDTO userLoginDTO) {
-        ResponseDTO respDTO = new ResponseDTO();
-        List<UserData> userList = userRepository.findAll();
+        System.out.println(userLoginDTO.getEmail());
         UserData userDataByEmail = userRepository.findUserDataByEmail(userLoginDTO.getEmail());
-        if (userList.contains(userDataByEmail)) {
-            String password = userDataByEmail.getPassword();
-
-            if (bCryptPasswordEncoder.matches(userLoginDTO.getPassword(), password)) {
-                respDTO.setMessage("login SuccessFul");
-                respDTO.setData(userDataByEmail);
-                return respDTO;
-            } else {
-                respDTO.setMessage("Sorry! login is Un-successful");
-                respDTO.setData("Password in incorrect");
-                return respDTO;
-            }
+        if (userDataByEmail == null) {
+            throw new BookStoreException("Enter registered Email", BookStoreException.ExceptionType.EMAIL_NOT_FOUND);
         }
-        return new ResponseDTO("User not found", "Wrong email");
+        if (userDataByEmail.getIsVerified()) {
+            boolean isPassword = bCryptPasswordEncoder.matches(userLoginDTO.getPassword(),
+                    userDataByEmail.getPassword());
+            if (!isPassword) {
+                throw new BookStoreException("Invalid Password!!!Please Enter Correct Password",
+                        BookStoreException.ExceptionType.PASSWORD_INVALID);
+            }
+            String jwtToken = tokenGenerator.generateLoginToken(userDataByEmail);
+            return new ResponseDTO("Logged in successfully", jwtToken);
+        }
+        otp = generateOtpAndSendEmail(userDataByEmail);
+        throw new BookStoreException("Please verify your email before proceeding",
+                BookStoreException.ExceptionType.EMAIL_NOT_FOUND);
+    }
+
+    /**
+     * @Purpose This method is used to generate otp and send email
+     */
+    private Long generateOtpAndSendEmail(UserData userData) {
+        long generatedOtp = otpGenerator.generateOTP();
+        String requestUrl = "http://localhost:8080/bookstoreApi/verify/email/" + generatedOtp;
+        System.out.println("the generated otp is " + generatedOtp);
+        try {
+            emailSenderService.sendEmail(
+                    userData.getEmail(),
+                    "Your Registration is successful",
+                    requestUrl + "\n your generated otp is "
+                            + generatedOtp +
+                            " click on the link above to verify the user");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return generatedOtp;
     }
 
     /**
@@ -173,7 +197,6 @@ public class UserService implements UserServiceImpl {
     public void deleteUserData(Integer id) {
        UserData deleteUser = this.getUserDataById(id);
        userRepository.delete(deleteUser);
-
     }
 
     /**
@@ -183,15 +206,6 @@ public class UserService implements UserServiceImpl {
     public List<UserData> getUserData() {
         return userRepository.findAll();
     }
-
-
-
-
-
-
-
-
-
 
 }
 

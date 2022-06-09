@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -61,8 +62,10 @@ public class UserController {
      * @return user data and httpStatus
      */
     @PostMapping("/login")
-    public ResponseEntity<ResponseDTO> userLogin(@Valid @RequestBody UserLoginDTO userLoginDTO) {
+    public ResponseEntity<ResponseDTO> userLogin(@Valid @RequestBody UserLoginDTO userLoginDTO, HttpServletResponse httpServletResponse) {
         ResponseDTO respDTO = userService.loginUser(userLoginDTO);
+        String token = (String)respDTO.getData();
+        httpServletResponse.setHeader("Authorization",token);
         return new ResponseEntity(respDTO, HttpStatus.OK);
     }
 

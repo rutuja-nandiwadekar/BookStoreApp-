@@ -8,7 +8,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 public class AppConfiguration {
-
     @Bean
     public ModelMapper modelMapper() {
         return new ModelMapper();
@@ -17,7 +16,6 @@ public class AppConfiguration {
     public BCryptPasswordEncoder bCryptPasswordEncoder(){
         return new BCryptPasswordEncoder();
     }
-
     @Bean
     public EmailSenderService emailSenderService(){
         return  new EmailSenderService();
