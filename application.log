@@ -5,3 +5,20 @@
 2022-06-10 00:00:51.838  INFO 19280 --- [restartedMain] c.b.b.BookStoreAppApplication            : Book Store Application DB User is root 
 2022-06-10 00:01:38.639  WARN 19280 --- [http-nio-8080-exec-4] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [com.bridgelabz.bookstoreapp.exception.BookStoreException: Invalid Password!!!Please Enter Correct Password]
 2022-06-10 00:03:19.293  WARN 19280 --- [http-nio-8080-exec-6] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [com.bridgelabz.bookstoreapp.exception.BookStoreException: Enter registered Email]
+2022-06-10 00:36:21.330  INFO 8108 --- [restartedMain] c.b.b.BookStoreAppApplication            : Starting BookStoreAppApplication using Java 17.0.2 on LAPTOP-NATQCI4K with PID 8108 (D:\CFP\SpringBoot\bookstoreapp\target\classes started by root in D:\CFP\SpringBoot\bookstoreapp)
+2022-06-10 00:36:21.332 DEBUG 8108 --- [restartedMain] c.b.b.BookStoreAppApplication            : Running with Spring Boot v2.7.0, Spring v5.3.20
+2022-06-10 00:36:21.333  INFO 8108 --- [restartedMain] c.b.b.BookStoreAppApplication            : The following 1 profile is active: "dev"
+2022-06-10 00:36:48.717  WARN 8108 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-06-10 00:36:50.697  WARN 8108 --- [restartedMain] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2022-06-10 00:36:51.622  INFO 8108 --- [restartedMain] c.b.b.BookStoreAppApplication            : Started BookStoreAppApplication in 31.336 seconds (JVM running for 50.583)
+2022-06-10 00:36:51.626  INFO 8108 --- [restartedMain] c.b.b.BookStoreAppApplication            : Book Store Application started in DEV Environment
+2022-06-10 00:36:51.627  INFO 8108 --- [restartedMain] c.b.b.BookStoreAppApplication            : Book Store Application DB User is root 
+2022-06-10 00:41:04.406  INFO 13024 --- [restartedMain] c.b.b.BookStoreAppApplication            : Starting BookStoreAppApplication using Java 17.0.2 on LAPTOP-NATQCI4K with PID 13024 (D:\CFP\SpringBoot\bookstoreapp\target\classes started by root in D:\CFP\SpringBoot\bookstoreapp)
+2022-06-10 00:41:04.407 DEBUG 13024 --- [restartedMain] c.b.b.BookStoreAppApplication            : Running with Spring Boot v2.7.0, Spring v5.3.20
+2022-06-10 00:41:04.408  INFO 13024 --- [restartedMain] c.b.b.BookStoreAppApplication            : The following 1 profile is active: "dev"
+2022-06-10 00:41:12.793  WARN 13024 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-06-10 00:41:13.066  WARN 13024 --- [restartedMain] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2022-06-10 00:41:13.419  INFO 13024 --- [restartedMain] c.b.b.BookStoreAppApplication            : Started BookStoreAppApplication in 9.34 seconds (JVM running for 10.419)
+2022-06-10 00:41:13.422  INFO 13024 --- [restartedMain] c.b.b.BookStoreAppApplication            : Book Store Application started in DEV Environment
+2022-06-10 00:41:13.424  INFO 13024 --- [restartedMain] c.b.b.BookStoreAppApplication            : Book Store Application DB User is root 
+2022-06-10 00:43:00.911  WARN 13024 --- [http-nio-8080-exec-1] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Invalid numeric value: Leading zeroes not allowed; nested exception is com.fasterxml.jackson.core.JsonParseException: Invalid numeric value: Leading zeroes not allowed<EOL> at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 5, column: 29]]

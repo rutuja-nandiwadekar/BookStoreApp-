@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+
 @Component
 @Entity
 @Data
@@ -18,14 +20,25 @@ public class UserData {
     private Integer id;
     private String firstName;
     private String lastName;
+    private String kyc;
+    private LocalDate dateOfBirth;
+    private LocalDate registeredDate;
+    private LocalDate updatedDate;
+    private String phoneNumber;
     private String email;
     private String password;
     private Boolean isVerified=false;
 
-    public UserData(Integer id, String firstName, String lastName, String email, String password, Boolean isVerified) {
+    public UserData(Integer id, String firstName, String lastName, String kyc, LocalDate dateOfBirth, LocalDate registeredDate,
+                    LocalDate updatedDate, String phoneNumber, String email, String password, Boolean isVerified) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.kyc = kyc;
+        this.dateOfBirth = dateOfBirth;
+        this.registeredDate = registeredDate;
+        this.updatedDate = updatedDate;
+        this.phoneNumber = phoneNumber;
         this.email = email;
         this.password = password;
         this.isVerified = isVerified;
@@ -39,6 +52,9 @@ public class UserData {
     public void updateUserData(UserDTO userDTO) {
         this.firstName = userDTO.firstName;
         this.lastName = userDTO.lastName;
+        this.kyc = userDTO.kyc;
+        this.dateOfBirth = userDTO.dateOfBirth;
+        this.phoneNumber = userDTO.phoneNumber;
         this.email = userDTO.email;
         this.password = userDTO.password;
     }
