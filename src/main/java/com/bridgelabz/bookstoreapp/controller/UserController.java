@@ -112,9 +112,9 @@ public class UserController {
      * @Param : id, UserDTO
      * @return updated user data and httpStatus
      */
-    @PutMapping("/update/{id}")
-    public ResponseEntity<ResponseDTO> updateUserData(@PathVariable("id") Integer id, @Valid @RequestBody UserDTO userDTO){
-        UserData userData = userService.updateUserData(id, userDTO);
+    @PutMapping("/update/{userId}")
+    public ResponseEntity<ResponseDTO> updateUserData(@PathVariable("userId") Integer userId, @Valid @RequestBody UserDTO userDTO){
+        UserData userData = userService.updateUserData(userId, userDTO);
         ResponseDTO respDTO=new ResponseDTO("User Updated Successfully",userData);
         return new ResponseEntity(respDTO, HttpStatus.OK);
     }
@@ -125,9 +125,9 @@ public class UserController {
      * @return response and status
      */
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<ResponseDTO> deleteUser(@PathVariable ("id") Integer id){
-        userService.deleteUserData(id);
-        ResponseDTO respDTO = new ResponseDTO("Deleted successfully","Deleted id: "+id);
+    public ResponseEntity<ResponseDTO> deleteUser(@PathVariable ("userId") Integer userId){
+        userService.deleteUserData(userId);
+        ResponseDTO respDTO = new ResponseDTO("Deleted successfully","Deleted id: "+userId);
         return new  ResponseEntity<>(respDTO,HttpStatus.OK);
     }
 

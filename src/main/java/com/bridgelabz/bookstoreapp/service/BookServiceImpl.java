@@ -15,4 +15,12 @@ public interface BookServiceImpl {
     BookData updateBookData(int bookId, BookDTO bookDTO);
 
     void deleteBookData(int bookId);
+
+    List<BookData> searchByName(String name);
+
+    List<BookData> getBookByAscendingPrice();
+
+    List<BookData> getBookByDescendingPrice();
+
+    int getTotalBooksCount();
 }

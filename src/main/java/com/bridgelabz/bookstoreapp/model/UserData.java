@@ -17,7 +17,7 @@ public class UserData {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
-    private Integer id;
+    private Integer userId;
     private String firstName;
     private String lastName;
     private String kyc;
@@ -29,9 +29,9 @@ public class UserData {
     private String password;
     private Boolean isVerified=false;
 
-    public UserData(Integer id, String firstName, String lastName, String kyc, LocalDate dateOfBirth,
+    public UserData(Integer userId, String firstName, String lastName, String kyc, LocalDate dateOfBirth,
                     String phoneNumber, String email, String password, Boolean isVerified) {
-        this.id = id;
+        this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.kyc = kyc;
