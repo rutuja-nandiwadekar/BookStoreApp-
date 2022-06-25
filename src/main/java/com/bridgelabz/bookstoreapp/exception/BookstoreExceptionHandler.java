@@ -18,12 +18,12 @@ public class BookstoreExceptionHandler {
      * @Purpose : User Friendly Error Response in case validation fails
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ResponseDTO> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception){
-        List<ObjectError> errorList= exception.getBindingResult().getAllErrors();
-        List<String> errMesg =  errorList.stream()
+    public ResponseEntity<ResponseDTO> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
+        List<ObjectError> errorList = exception.getBindingResult().getAllErrors();
+        List<String> errMesg = errorList.stream()
                 .map(objectError -> objectError.getDefaultMessage())
                 .collect(Collectors.toList());
-        ResponseDTO responseDTO = new ResponseDTO("Exception While processing REST Request",errMesg);
+        ResponseDTO responseDTO = new ResponseDTO("Exception While processing REST Request", errMesg);
         return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
     }
 
@@ -31,8 +31,8 @@ public class BookstoreExceptionHandler {
      * @Purpose : User Friendly Errors in case person Id is not found in bookstore app
      */
     @ExceptionHandler(BookStoreException.class)
-    public ResponseEntity<ResponseDTO> handleMethodBookstoreException(BookStoreException exception){
-        ResponseDTO responseDTO = new ResponseDTO("Exception While processing REST Request",exception.getMessage());
-        return new ResponseEntity<>(responseDTO,HttpStatus.BAD_REQUEST);
+    public ResponseEntity<ResponseDTO> handleMethodBookstoreException(BookStoreException exception) {
+        ResponseDTO responseDTO = new ResponseDTO("Exception While processing REST Request", exception.getMessage());
+        return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
     }
 }

@@ -23,21 +23,22 @@ public class BookController {
     private BookService bookService;
 
     /**
+     * @return book data and httpStatus
      * @Purpose : To add book in book store application
      * @Param : BookDTO
-     * @return book data and httpStatus
      */
+
     @PostMapping("/add")
     //@RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ResponseEntity<ResponseDTO> addBookDetails(@Valid @RequestBody BookDTO bookDTO) {
-        BookData bookData = bookService.addBook(bookDTO);
+    public ResponseEntity<ResponseDTO> addBookDetails(@Valid @RequestBody BookDTO bookDTO, @RequestHeader String token) {
+        BookData bookData = bookService.addBook(bookDTO, token);
         ResponseDTO respDTO = new ResponseDTO("Book data added Successfully: ", bookData);
         return new ResponseEntity(respDTO, HttpStatus.OK);
     }
 
     /**
-     * @Purpose : To get all books in book store application
      * @return book data and httpStatus
+     * @Purpose : To get all books in book store application
      */
     @RequestMapping(value = {"", "/", "/getall"})
     public ResponseEntity<ResponseDTO> getAllBookData() {
@@ -47,9 +48,9 @@ public class BookController {
     }
 
     /**
+     * @return book data and httpStatus
      * @Purpose : To get book by ID in book store application
      * @Param : BookId
-     * @return book data and httpStatus
      */
     @GetMapping("/get_by_id/{bookId}")
     //@RequestMapping(value = "/get_by_id/{bookId}", method = RequestMethod.GET)
@@ -60,9 +61,9 @@ public class BookController {
     }
 
     /**
+     * @return : updated book data and httpStatus
      * @Purpose : To update book by ID in book store application
      * @Param : BookId bookDTO
-     * @return : updated book data and httpStatus
      */
     @PutMapping("/update/{bookId}")
     // @RequestMapping(value = "/update/{bookId}", method = RequestMethod.PUT)
@@ -73,9 +74,9 @@ public class BookController {
     }
 
     /**
+     * @return : Response httpStatus
      * @Purpose : To delete book by ID in book store application
      * @Param : BookId
-     * @return : Response httpStatus
      */
     @DeleteMapping("/delete/{bookId}")
     // @RequestMapping(value = "/delete/{bookId}", method = RequestMethod.DELETE)
@@ -86,9 +87,9 @@ public class BookController {
     }
 
     /**
+     * @return : Response httpStatus
      * @Purpose : To search book by name in book store application
      * @Param : name
-     * @return : Response httpStatus
      */
     @GetMapping("/searchByName")
     public ResponseEntity<ResponseDTO> searchByName(@RequestParam String name) {
@@ -98,8 +99,8 @@ public class BookController {
     }
 
     /**
-     * @Purpose : To show total Book Count in book store application
      * @return : Response httpStatus
+     * @Purpose : To show total Book Count in book store application
      */
     @GetMapping("/totalBookCount")
     public ResponseEntity<ResponseDTO> getTotalBookCount() {
@@ -108,8 +109,8 @@ public class BookController {
     }
 
     /**
-     * @Purpose : To get Book By Ascending Price
      * @return : Response httpStatus
+     * @Purpose : To get Book By Ascending Price
      */
     @GetMapping("/getBookByAscendingPrice")
     public ResponseEntity<ResponseDTO> getBookByAscendingPrice() {
@@ -119,8 +120,8 @@ public class BookController {
     }
 
     /**
-     * @Purpose : To get Book By Descending Price
      * @return : Response httpStatus
+     * @Purpose : To get Book By Descending Price
      */
     @GetMapping("/getBookByDescendingPrice")
     public ResponseEntity<ResponseDTO> getBookByDescendingPrice() {
@@ -128,7 +129,5 @@ public class BookController {
         ResponseDTO respDTO = new ResponseDTO("Books in descending order...", bookDataList);
         return new ResponseEntity<>(respDTO, HttpStatus.OK);
     }
-
-
 }
 

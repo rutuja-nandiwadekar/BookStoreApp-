@@ -6,7 +6,7 @@ import com.bridgelabz.bookstoreapp.model.BookData;
 import java.util.List;
 
 public interface BookServiceImpl {
-    BookData addBook(BookDTO bookDTO);
+    BookData addBook(BookDTO bookDTO, String token);
 
     List<BookData> getAllBookData();
 

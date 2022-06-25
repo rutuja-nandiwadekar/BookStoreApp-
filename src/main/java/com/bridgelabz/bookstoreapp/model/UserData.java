@@ -22,12 +22,13 @@ public class UserData {
     private String lastName;
     private String kyc;
     private LocalDate dateOfBirth;
-//    private LocalDate registeredDate;
-//    private LocalDate updatedDate;
+
+    private LocalDate registeredDate;
+
     private String phoneNumber;
     private String email;
     private String password;
-    private Boolean isVerified=false;
+    private Boolean isVerified = false;
 
     public UserData(Integer userId, String firstName, String lastName, String kyc, LocalDate dateOfBirth,
                     String phoneNumber, String email, String password, Boolean isVerified) {

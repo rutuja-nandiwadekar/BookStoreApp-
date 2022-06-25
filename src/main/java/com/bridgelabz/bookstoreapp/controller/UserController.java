@@ -27,53 +27,54 @@ public class UserController {
     private EmailSenderService senderService;
 
     /**
-     * @Purpose : To check simple api call
      * @return welcome message
+     * @Purpose : To check simple api call
      */
     @RequestMapping(value = {"/welcome", "/", ""})
-    public String welcomeMessage(){
+    public String welcomeMessage() {
         return "Welcome to Book Store Application !!!";
     }
 
     /**
+     * @return user data and httpStatus
      * @Purpose : To add / register user in book store application
      * @Param : UserDTO
-     * @return user data and httpStatus
      */
     @PostMapping("/register")
-    public ResponseEntity<ResponseDTO> userRegistration(@Valid @RequestBody UserDTO userDTO){
-        ResponseDTO respDTO = userService.registerUser(userDTO);
+    public ResponseEntity<ResponseDTO> userRegistration(@Valid @RequestBody UserDTO userDTO) {
+        UserData userData = userService.registerUser(userDTO);
+        ResponseDTO respDTO = new ResponseDTO("User created successfully",userData);
         return new ResponseEntity(respDTO, HttpStatus.OK);
     }
 
     /**
+     * @return user data and httpStatus
      * @Purpose : To verify otp at the time of registration
      * @Param : otp
-     * @return user data and httpStatus
      */
     @GetMapping("/verify/email/{otp}")
-    public ResponseEntity<ResponseDTO> otpVerification(@PathVariable Long otp){
+    public ResponseEntity<ResponseDTO> otpVerification(@PathVariable Long otp) {
         ResponseDTO respDTO = userService.verifyOtp(otp);
         return new ResponseEntity<>(respDTO, HttpStatus.OK);
     }
 
     /**
+     * @return user data and httpStatus
      * @Purpose : To login user
      * @Param : UserLoginDTO
-     * @return user data and httpStatus
      */
     @PostMapping("/login")
     public ResponseEntity<ResponseDTO> userLogin(@Valid @RequestBody UserLoginDTO userLoginDTO, HttpServletResponse httpServletResponse) {
         ResponseDTO respDTO = userService.loginUser(userLoginDTO);
-        String token = (String)respDTO.getData();
-        httpServletResponse.setHeader("Authorization",token);
+        String token = (String) respDTO.getData();
+        httpServletResponse.setHeader("Authorization", token);
         return new ResponseEntity(respDTO, HttpStatus.OK);
     }
 
     /**
+     * @return response and status
      * @Purpose : To sent forgot password request
      * @Param : email
-     * @return response and status
      */
     @PostMapping("/forgotpassword")
     public ResponseEntity<ResponseDTO> forgotPasswordRequest(@RequestParam("email") String email) {
@@ -83,9 +84,9 @@ public class UserController {
     }
 
     /**
+     * @return response and status
      * @Purpose : To reset password
      * @Param : password, otp
-     * @return response and status
      */
     @PostMapping("/resetpassword/{otp}")
     public ResponseEntity<ResponseDTO> resetPassword(@RequestParam String password, @PathVariable Long otp) {
@@ -96,11 +97,11 @@ public class UserController {
     }
 
     /**
+     * @return user data list and httpStatus
      * @Purpose : To get list of all user in book store application
-     * @return  user data list and httpStatus
      */
     @RequestMapping(value = {"", "/", "/getall"})
-    public ResponseEntity<ResponseDTO> getEmployeePayrollData(){
+    public ResponseEntity<ResponseDTO> getEmployeePayrollData() {
         List<UserData> userDataList = null;
         userDataList = userService.getUserData();
         ResponseDTO respDTO = new ResponseDTO("Get Call Successful", userDataList);
@@ -108,27 +109,27 @@ public class UserController {
     }
 
     /**
+     * @return updated user data and httpStatus
      * @Purpose : To update user data in book store application
      * @Param : id, UserDTO
-     * @return updated user data and httpStatus
      */
     @PutMapping("/update/{userId}")
-    public ResponseEntity<ResponseDTO> updateUserData(@PathVariable("userId") Integer userId, @Valid @RequestBody UserDTO userDTO){
+    public ResponseEntity<ResponseDTO> updateUserData(@PathVariable("userId") Integer userId, @Valid @RequestBody UserDTO userDTO) {
         UserData userData = userService.updateUserData(userId, userDTO);
-        ResponseDTO respDTO=new ResponseDTO("User Updated Successfully",userData);
+        ResponseDTO respDTO = new ResponseDTO("User Updated Successfully", userData);
         return new ResponseEntity(respDTO, HttpStatus.OK);
     }
 
     /**
+     * @return response and status
      * @Purpose : To delete user data by in book store application
      * @Param : id
-     * @return response and status
      */
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<ResponseDTO> deleteUser(@PathVariable ("userId") Integer userId){
+    @DeleteMapping("/delete/{userId}")
+    public ResponseEntity<ResponseDTO> deleteUser(@PathVariable("userId") Integer userId) {
         userService.deleteUserData(userId);
-        ResponseDTO respDTO = new ResponseDTO("Deleted successfully","Deleted id: "+userId);
-        return new  ResponseEntity<>(respDTO,HttpStatus.OK);
+        ResponseDTO respDTO = new ResponseDTO("Deleted successfully", "Deleted id: " + userId);
+        return new ResponseEntity<>(respDTO, HttpStatus.OK);
     }
 
 }

@@ -1,16 +1,22 @@
 package com.bridgelabz.bookstoreapp.service;
 
 import com.bridgelabz.bookstoreapp.dto.CartDTO;
+import com.bridgelabz.bookstoreapp.model.BookData;
 import com.bridgelabz.bookstoreapp.model.CartData;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface CartServiceImpl {
-    CartData insertItems(CartDTO cartdto);
 
-    Optional<CartData> getCartDetailsById(Integer cartId);
+    BookData insertItems(String token, Integer bookId);
 
-    Optional<CartData> deleteCartItemById(Integer cartId);
+    List<CartData> getAll();
 
-    CartData updateQuntity(Integer cartId, int quantity);
+    CartData getCartDetailsById(Integer cartId);
+
+    CartData deleteCartItemById(Integer cartId);
+
+    CartData updateQuantity(Integer cartId, int quantity);
+
 }

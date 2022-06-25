@@ -20,6 +20,8 @@ public class BookData {
     @Column(name = "book_id")
     private Integer bookID;
 
+    private Integer userId;
+
     private String bookName;
 
     private String authorName;
@@ -32,9 +34,10 @@ public class BookData {
 
     private Integer quantity;
 
-    public BookData(Integer bookID, String bookName, String authorName,
+    public BookData(Integer bookID, Integer userID, String bookName, String authorName,
                     String description, String logo, Integer price, Integer quantity) {
         this.bookID = bookID;
+        this.userId = userId;
         this.bookName = bookName;
         this.authorName = authorName;
         this.description = description;
@@ -48,7 +51,7 @@ public class BookData {
 
     }
 
-    public void updateBookData(BookDTO bookDTO){
+    public void updateBookData(BookDTO bookDTO) {
         this.bookName = bookDTO.bookName;
         this.authorName = bookDTO.authorName;
         this.description = bookDTO.description;

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+
 @Component
 @Data
 @Entity
@@ -25,15 +26,13 @@ public class CartData {
     private Integer quantity;
 
 
-
-
     public CartData() {
         super();
     }
 
     public CartData(Integer quantity, BookData bookData, UserData userData) {
-        this.quantity=quantity;
-        this.bookData=bookData;
-        this.userData=userData;
+        this.quantity = quantity;
+        this.bookData = bookData;
+        this.userData = userData;
     }
 }

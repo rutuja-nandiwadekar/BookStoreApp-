@@ -12,12 +12,14 @@ public class AppConfiguration {
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }
+
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder(){
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Bean
-    public EmailSenderService emailSenderService(){
-        return  new EmailSenderService();
+    public EmailSenderService emailSenderService() {
+        return new EmailSenderService();
     }
 }

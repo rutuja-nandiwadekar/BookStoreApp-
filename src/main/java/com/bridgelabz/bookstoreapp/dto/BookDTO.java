@@ -32,7 +32,10 @@ public @ToString class BookDTO {
     @NotNull(message = "Quantity cannot be null")
     public Integer quantity;
 
-    public BookDTO(String bookName, String authorName, String description, String logo, Integer price, Integer quantity) {
+
+    public BookDTO(String bookName, String authorName,
+                   String description, String logo, Integer price,
+                   Integer quantity, Integer userId) {
         this.bookName = bookName;
         this.authorName = authorName;
         this.description = description;

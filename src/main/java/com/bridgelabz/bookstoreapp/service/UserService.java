@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -37,9 +38,6 @@ public class UserService implements UserServiceImpl {
     private EmailSenderService emailSenderService;
 
     @Autowired
-    private ModelMapper modelMapper;
-
-    @Autowired
     private TokenGenerator tokenGenerator;
 
     Long otp;
@@ -51,52 +49,38 @@ public class UserService implements UserServiceImpl {
     public UserData getUserDataById(Integer id) {
         return userRepository
                 .findById(id)
-                .orElseThrow(()->new BookStoreException(("User with Id " +id+ " does not exists...")));
+                .orElseThrow(() -> new BookStoreException(("User with Id " + id + " does not exists...")));
     }
 
     /**
      * @Purpose This method is used to register user
      */
     @Override
-    public ResponseDTO registerUser(UserDTO userDTO) {
-        ResponseDTO responseDTO = new ResponseDTO();
+    public UserData  registerUser(UserDTO userDTO) {
         UserData user = userRepository.findUserDataByEmail(userDTO.getEmail());
         if (user == null) {
-
-            userData = modelMapper.map(userDTO, UserData.class);
-
+            userData = new UserData(userDTO);
+            userData.setRegisteredDate(LocalDate.now());
             String epassword = bCryptPasswordEncoder.encode(userDTO.getPassword());
             userData.setPassword(epassword);
-            System.out.println("Password is " + epassword);
-
+            System.out.println("password is " + epassword);
             userData = userRepository.save(userData);
-            otp = otpGenerator.generateOTP();
-            String requestUrl = "http://localhost:8080/bookstoreApi/verify/email/" + otp;
-            System.out.println("the generated otp is " + otp);
-            try {
-                emailSenderService.sendEmail(
-                        userDTO.getEmail(),
-                        "Your Registration is successful",
-                        requestUrl+"\n your generated otp is "
-                                +otp);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            responseDTO.setMessage("User Created successfully...Check your mail for verification");
-            responseDTO.setData(userData);
+            System.out.println(userData);
+            otp = generateOtpAndSendEmail(userData);
+            return userData;
         } else {
-            responseDTO.setMessage("user not created");
-            responseDTO.setData("user with " + userDTO.getEmail() + " is already exists");
+            throw new BookStoreException("Email already exists",
+                    BookStoreException.ExceptionType.USER_ALREADY_PRESENT);
         }
-        return responseDTO;
     }
+
 
     /**
      * @Purpose This method is used to verify otp while user registration
      */
     @Override
     public ResponseDTO verifyOtp(Long otp) {
-        if (otp.equals(otp)&&userData.getIsVerified().equals(false)) {
+        if (otp.equals(otp) && userData.getIsVerified().equals(false)) {
             userData.setIsVerified(true);
             userRepository.save(userData);
             return new ResponseDTO("otp verified", userData);
@@ -135,7 +119,7 @@ public class UserService implements UserServiceImpl {
      */
     private Long generateOtpAndSendEmail(UserData userData) {
         long generatedOtp = otpGenerator.generateOTP();
-        String requestUrl = "http://localhost:8080/bookstoreApi/verify/email/" + generatedOtp;
+        String requestUrl = "http://localhost:8080/bookstore/verify/email/" + generatedOtp;
         System.out.println("the generated otp is " + generatedOtp);
         try {
             emailSenderService.sendEmail(
@@ -149,6 +133,8 @@ public class UserService implements UserServiceImpl {
         }
         return generatedOtp;
     }
+
+
 
     /**
      * @Purpose This method is used to generate otp for forgot password request
@@ -187,16 +173,16 @@ public class UserService implements UserServiceImpl {
         UserData updateUser = this.getUserDataById(id);
         updateUser.updateUserData(userDTO);
         updateUser.setPassword(bCryptPasswordEncoder.encode(updateUser.getPassword()));
-        return  userRepository.save(updateUser);
+        return userRepository.save(updateUser);
     }
 
     /**
      * @Purpose This method is used to delete the user data
      */
     @Override
-    public void deleteUserData(Integer id) {
-       UserData deleteUser = this.getUserDataById(id);
-       userRepository.delete(deleteUser);
+    public void deleteUserData(Integer userId) {
+        UserData deleteUser = this.getUserDataById(userId);
+        userRepository.delete(deleteUser);
     }
 
     /**

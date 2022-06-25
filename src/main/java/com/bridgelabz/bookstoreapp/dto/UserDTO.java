@@ -24,12 +24,12 @@ public @ToString class UserDTO {
     @NotEmpty(message = "KYC cannot be null")
     public String kyc;
 
-//    @JsonFormat(pattern = "dd MM yyyy")
+    //    @JsonFormat(pattern = "dd MM yyyy")
 //    @NotNull(message = "Date should not be empty")
 //    @PastOrPresent(message = "start date should be past or todays")
     public LocalDate dateOfBirth;
 
-    @Pattern(regexp = "^[91]+[ ]?[6-9]{1}[0-9]{9}$" ,message = "phonenumber is invalid")
+    @Pattern(regexp = "^[91]+[ ]?[6-9]{1}[0-9]{9}$", message = "phonenumber is invalid")
     @NotEmpty(message = "Phone number cannot be null")
     public String phoneNumber;
 

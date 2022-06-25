@@ -5,27 +5,53 @@ import com.bridgelabz.bookstoreapp.dto.BookDTO;
 import com.bridgelabz.bookstoreapp.exception.BookStoreException;
 import com.bridgelabz.bookstoreapp.model.BookData;
 
+import com.bridgelabz.bookstoreapp.model.UserData;
 import com.bridgelabz.bookstoreapp.repository.BookRepository;
+import com.bridgelabz.bookstoreapp.repository.UserRegistrationRepository;
+import com.bridgelabz.bookstoreapp.util.TokenGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class BookService implements BookServiceImpl{
-
+public class BookService implements BookServiceImpl {
 
     @Autowired
     private BookRepository bookRepository;
 
+    @Autowired
+    private BookData bookData;
+
+    @Autowired
+    private UserRegistrationRepository userRegistrationRepository;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private TokenGenerator tokenGenerator;
+
 
     @Override
-    public BookData addBook(BookDTO bookDTO) {
-        BookData bookData = null;
+    public BookData addBook(BookDTO bookDTO, String token) {
+        Integer id = Integer.valueOf(tokenGenerator.decodeJWT(token));
+        UserData userData = userRegistrationRepository.findById(id)
+                .orElseThrow(() -> new BookStoreException("User not found", BookStoreException.ExceptionType.USER_NOT_FOUND));
+
+        System.out.println(userData.getEmail());
+
+        Optional<BookData> searchByName = bookRepository.findByBookName(bookDTO.getBookName());
+        if (searchByName.isPresent()) {
+            throw new BookStoreException("Book already present...", BookStoreException.ExceptionType.BOOK_ALREADY_PRESENT);
+        }
+
         bookData = new BookData(bookDTO);
+        bookData.setUserId(id);
         return bookRepository.save(bookData);
     }
 
@@ -38,7 +64,7 @@ public class BookService implements BookServiceImpl{
     public BookData getBookDataById(int bookId) {
         return bookRepository
                 .findById(bookId)
-                .orElseThrow(()->new BookStoreException("Person with bookId "+bookId+" doesnot exists"));
+                .orElseThrow(() -> new BookStoreException("Person with bookId " + bookId + " doesnot exists"));
     }
 
     @Override

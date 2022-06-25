@@ -13,7 +13,7 @@ public interface UserServiceImpl {
 
     UserData getUserDataById(Integer id);
 
-    void deleteUserData(Integer id);
+    void deleteUserData(Integer userId);
 
     List<UserData> getUserData();
 
@@ -21,7 +21,7 @@ public interface UserServiceImpl {
 
     ResponseDTO verifyOtp(Long otp);
 
-    ResponseDTO registerUser(UserDTO userDTO);
+    UserData  registerUser(UserDTO userDTO);
 
     String forgotPasswordRequest(String email);
 
